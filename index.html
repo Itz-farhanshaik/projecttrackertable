@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quantum Scope Project Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="login-screen" id="loginScreen">
+        <div class="ornament ornament-top" aria-hidden="true"></div>
+        <div class="ornament ornament-bottom" aria-hidden="true"></div>
+
+        <form class="login-card" id="loginForm" autocomplete="off">
+          <div class="login-title-wrap">
+            <h1>LOGIN</h1>
+            <div class="login-flourish" aria-hidden="true"></div>
+          </div>
+
+          <label class="login-field">
+            <span>User name</span>
+            <input id="email" type="email" placeholder="Email address" autocomplete="username" required />
+          </label>
+
+          <label class="login-field">
+            <span>Password</span>
+            <input id="password" type="password" placeholder="Password" autocomplete="current-password" required />
+          </label>
+
+          <button class="login-button" type="submit">LOGIN</button>
+          <p id="loginError" class="login-error" aria-live="polite"></p>
+        </form>
+
+        <p class="brand-mark">QUANTUM SCOPE</p>
+      </section>
+
+      <section class="dashboard-screen hidden" id="dashboardScreen" aria-hidden="true">
+        <header class="dashboard-header">
+          <div>
+            <p class="section-label">Quantum Scope</p>
+            <h2>Project Tracker</h2>
+            <p class="dashboard-copy">Manage projects in a clean table after signing in.</p>
+          </div>
+          <div class="account-bar">
+            <span id="currentUserLabel">Signed in</span>
+            <button class="ghost-button" id="logoutBtn" type="button">Log Out</button>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <article class="stat-card">
+            <span>Total Projects</span>
+            <strong id="totalProjects">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Planning</span>
+            <strong id="planningCount">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Active</span>
+            <strong id="activeCount">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Completed</span>
+            <strong id="completedCount">0</strong>
+          </article>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h3>Add Project</h3>
+            <p>Add a new row to the tracker table.</p>
+          </div>
+
+          <form id="projectForm" class="project-form">
+            <input id="projectName" type="text" placeholder="Project name" required />
+            <input id="ownerName" type="text" placeholder="Owner" required />
+            <select id="projectStatus" required>
+              <option value="Planning">Planning</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Blocked">Blocked</option>
+              <option value="Completed">Completed</option>
+            </select>
+            <input id="progressValue" type="number" min="0" max="100" placeholder="Progress %" required />
+            <input id="dueDate" type="date" required />
+            <button type="submit">Add Row</button>
+          </form>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-heading">
+            <h3>Tracker Table</h3>
+            <p>Projects stay hidden until login succeeds.</p>
+          </div>
+
+          <div class="tracker-toolbar">
+            <label class="tracker-select">
+              <span>Select Tracker</span>
+              <select id="trackerSelect">
+                <option value="">No tracker selected</option>
+              </select>
+            </label>
+
+            <article class="tracker-detail" id="trackerDetail">
+              <span class="detail-label">Selected tracker</span>
+              <strong id="selectedTrackerName">No tracker yet</strong>
+              <p id="selectedTrackerMeta">Add projects, then choose one to inspect.</p>
+            </article>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Project</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                  <th>Progress</th>
+                  <th>Due Date</th>
+                </tr>
+              </thead>
+              <tbody id="trackerBody">
+                <tr class="empty-row" id="emptyRow">
+                  <td colspan="5">No trackers added yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
