@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quantum Scope Project Tracker</title>
+    <title>Quantum Scope Task Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -45,8 +45,8 @@
         <header class="dashboard-header">
           <div>
             <p class="section-label">Quantum Scope</p>
-            <h2>Project Tracker</h2>
-            <p class="dashboard-copy">Manage projects in a clean table after signing in.</p>
+            <h2>Task Tracker</h2>
+            <p class="dashboard-copy">Manage tasks in a clean table after signing in.</p>
           </div>
           <div class="account-bar">
             <span id="currentUserLabel">Signed in</span>
@@ -56,7 +56,7 @@
 
         <section class="stats-grid">
           <article class="stat-card">
-            <span>Total Projects</span>
+            <span>Total Tasks</span>
             <strong id="totalProjects">0</strong>
           </article>
           <article class="stat-card">
@@ -75,12 +75,12 @@
 
         <section class="panel">
           <div class="panel-heading">
-            <h3>Add Project</h3>
+            <h3>Add Task</h3>
             <p>Add a new row to the tracker table.</p>
           </div>
 
           <form id="projectForm" class="project-form">
-            <input id="projectName" type="text" placeholder="Project name" required />
+            <input id="projectName" type="text" placeholder="Task name" required />
             <input id="ownerName" type="text" placeholder="Owner" required />
             <select id="projectStatus" required>
               <option value="Planning">Planning</option>
@@ -97,7 +97,7 @@
         <section class="panel table-panel">
           <div class="panel-heading">
             <h3>Tracker Table</h3>
-            <p>Projects stay hidden until login succeeds.</p>
+            <p>Tasks stay hidden until login succeeds.</p>
           </div>
 
           <div class="tracker-toolbar">
@@ -111,7 +111,7 @@
             <article class="tracker-detail" id="trackerDetail">
               <span class="detail-label">Selected tracker</span>
               <strong id="selectedTrackerName">No tracker yet</strong>
-              <p id="selectedTrackerMeta">Add projects, then choose one to inspect.</p>
+              <p id="selectedTrackerMeta">Add tasks, then choose one to inspect.</p>
             </article>
           </div>
 
@@ -119,7 +119,7 @@
             <table>
               <thead>
                 <tr>
-                  <th>Project</th>
+                  <th>Task</th>
                   <th>Owner</th>
                   <th>Status</th>
                   <th>Progress</th>
