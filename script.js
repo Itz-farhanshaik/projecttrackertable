@@ -87,8 +87,8 @@ function renderSelectedTracker() {
   if (!project) {
     selectedTrackerName.textContent = projects.length > 0 ? "Showing all trackers" : "No tracker yet";
     selectedTrackerMeta.textContent = projects.length > 0
-      ? "Pick a tracker from the list to inspect a single project."
-      : "Add projects, then choose one to inspect.";
+      ? "Pick a tracker from the list to inspect a single task."
+      : "Add tasks, then choose one to inspect.";
     return;
   }
 
