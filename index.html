@@ -104,7 +104,7 @@
             <label class="tracker-select">
               <span>Select Tracker</span>
               <select id="trackerSelect">
-                <option value="">No tracker selected</option>
+                <option value="">All trackers</option>
               </select>
             </label>
 
@@ -147,6 +147,16 @@
         </div>
 
         <form class="edit-form" id="editForm">
+          <label>
+            <span>Owner</span>
+            <input id="editOwner" type="text" required />
+          </label>
+
+          <label>
+            <span>Due Date</span>
+            <input id="editDueDate" type="date" required />
+          </label>
+
           <label>
             <span>Status</span>
             <select id="editStatus" required>
