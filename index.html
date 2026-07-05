@@ -124,11 +124,12 @@
                   <th>Status</th>
                   <th>Progress</th>
                   <th>Due Date</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="trackerBody">
                 <tr class="empty-row" id="emptyRow">
-                  <td colspan="5">No trackers added yet.</td>
+                  <td colspan="6">No trackers added yet.</td>
                 </tr>
               </tbody>
             </table>
@@ -136,6 +137,38 @@
         </section>
       </section>
     </main>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Task</h3>
+          <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+        </div>
+
+        <form class="edit-form" id="editForm">
+          <label>
+            <span>Status</span>
+            <select id="editStatus" required>
+              <option value="Planning">Planning</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Blocked">Blocked</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Progress (%)</span>
+            <input id="editProgress" type="number" min="0" max="100" required />
+          </label>
+
+          <div style="display:flex; gap:12px; justify-content:flex-end; margin-top:6px;">
+            <button type="button" class="ghost-button" id="cancelEdit">Cancel</button>
+            <button type="submit" class="edit-btn">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
