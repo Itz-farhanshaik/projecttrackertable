@@ -25,6 +25,8 @@ const modalClose = document.getElementById("modalClose");
 const editForm = document.getElementById("editForm");
 const editStatus = document.getElementById("editStatus");
 const editProgress = document.getElementById("editProgress");
+const editOwner = document.getElementById("editOwner");
+const editDueDate = document.getElementById("editDueDate");
 const cancelEdit = document.getElementById("cancelEdit");
 
 const projectsStorageKey = "qscope-projects";
@@ -74,7 +76,8 @@ function selectedProject() {
 
 function renderTrackerSelector() {
   const currentSelection = trackerSelect.value;
-  trackerSelect.innerHTML = '<option value="">No tracker selected</option>';
+  // default option now indicates All trackers and uses empty value
+  trackerSelect.innerHTML = '<option value="">All trackers</option>';
 
   projects.forEach((project) => {
     const option = document.createElement("option");
@@ -83,10 +86,12 @@ function renderTrackerSelector() {
     trackerSelect.appendChild(option);
   });
 
+  // If the previously selected tracker still exists, keep it.
   if (projects.some((project) => project.id === currentSelection)) {
     trackerSelect.value = currentSelection;
-  } else if (projects.length > 0) {
-    trackerSelect.value = projects[0].id;
+  } else {
+    // Otherwise leave it empty so the dashboard shows all projects.
+    trackerSelect.value = "";
   }
 }
 
@@ -109,6 +114,9 @@ function openEditModal(id) {
   const project = projects.find((p) => p.id === id);
   if (!project) return;
   currentEditId = id;
+  // Pre-fill owner and due date in the modal
+  if (editOwner) editOwner.value = project.owner || "";
+  if (editDueDate) editDueDate.value = project.dueDate || "";
   editStatus.value = project.status;
   editProgress.value = project.progress;
   editModal.classList.add("active");
@@ -249,12 +257,16 @@ editForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!currentEditId) return;
 
+  const owner = editOwner ? editOwner.value.trim() : "";
+  const dueDate = editDueDate ? editDueDate.value : "";
   const status = editStatus.value;
   const progress = Number(editProgress.value);
 
   const idx = projects.findIndex((p) => p.id === currentEditId);
   if (idx === -1) return;
 
+  projects[idx].owner = owner || projects[idx].owner;
+  projects[idx].dueDate = dueDate || projects[idx].dueDate;
   projects[idx].status = status;
   projects[idx].progress = Number.isFinite(progress) ? progress : projects[idx].progress;
 
