@@ -19,8 +19,17 @@ const completedCount = document.getElementById("completedCount");
 const selectedTrackerName = document.getElementById("selectedTrackerName");
 const selectedTrackerMeta = document.getElementById("selectedTrackerMeta");
 
+// Edit modal elements
+const editModal = document.getElementById("editModal");
+const modalClose = document.getElementById("modalClose");
+const editForm = document.getElementById("editForm");
+const editStatus = document.getElementById("editStatus");
+const editProgress = document.getElementById("editProgress");
+const cancelEdit = document.getElementById("cancelEdit");
+
 const projectsStorageKey = "qscope-projects";
 let projects = loadProjects();
+let currentEditId = null;
 
 function statusClass(status) {
   switch (status) {
@@ -96,6 +105,23 @@ function renderSelectedTracker() {
   selectedTrackerMeta.textContent = `${project.owner} · ${project.status} · ${project.progress}% · Due ${project.dueDate}`;
 }
 
+function openEditModal(id) {
+  const project = projects.find((p) => p.id === id);
+  if (!project) return;
+  currentEditId = id;
+  editStatus.value = project.status;
+  editProgress.value = project.progress;
+  editModal.classList.add("active");
+  editModal.setAttribute("aria-hidden", "false");
+}
+
+function closeEditModal() {
+  currentEditId = null;
+  editForm.reset();
+  editModal.classList.remove("active");
+  editModal.setAttribute("aria-hidden", "true");
+}
+
 function renderDashboard() {
   renderTrackerSelector();
   const selected = selectedProject();
@@ -104,24 +130,33 @@ function renderDashboard() {
   if (projects.length === 0) {
     trackerBody.innerHTML = `
       <tr class="empty-row">
-        <td colspan="5">No trackers added yet.</td>
+        <td colspan="6">No trackers added yet.</td>
       </tr>
     `;
   } else {
     trackerBody.innerHTML = displayProjects
       .map(
         (project) => `
-        <tr>
+        <tr data-id="${project.id}">
           <td>${project.project}</td>
           <td>${project.owner}</td>
           <td><span class="status-pill ${statusClass(project.status)}">${project.status}</span></td>
           <td>${project.progress}%</td>
           <td>${project.dueDate}</td>
+          <td><button class="edit-btn" data-id="${project.id}" type="button">Edit</button></td>
         </tr>
       `,
       )
       .join("");
   }
+
+  // Attach handlers to the newly rendered edit buttons
+  trackerBody.querySelectorAll(".edit-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.currentTarget.dataset.id;
+      openEditModal(id);
+    });
+  });
 
   totalProjects.textContent = projects.length;
   planningCount.textContent = projects.filter((project) => project.status === "Planning").length;
@@ -200,6 +235,32 @@ projectForm.addEventListener("submit", (event) => {
   document.getElementById("projectStatus").value = "Planning";
   trackerSelect.value = trackerId;
   renderDashboard();
+});
+
+// Modal handlers
+modalClose.addEventListener("click", closeEditModal);
+cancelEdit.addEventListener("click", closeEditModal);
+editModal.addEventListener("click", (e) => {
+  // Close when clicking outside modal content
+  if (e.target === editModal) closeEditModal();
+});
+
+editForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (!currentEditId) return;
+
+  const status = editStatus.value;
+  const progress = Number(editProgress.value);
+
+  const idx = projects.findIndex((p) => p.id === currentEditId);
+  if (idx === -1) return;
+
+  projects[idx].status = status;
+  projects[idx].progress = Number.isFinite(progress) ? progress : projects[idx].progress;
+
+  saveProjects();
+  renderDashboard();
+  closeEditModal();
 });
 
 renderDashboard();
