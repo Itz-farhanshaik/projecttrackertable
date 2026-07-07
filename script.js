@@ -16,6 +16,7 @@ const totalProjects = document.getElementById("totalProjects");
 const planningCount = document.getElementById("planningCount");
 const activeCount = document.getElementById("activeCount");
 const completedCount = document.getElementById("completedCount");
+const blockedCount = document.getElementById("blockedCount");
 const selectedTrackerName = document.getElementById("selectedTrackerName");
 const selectedTrackerMeta = document.getElementById("selectedTrackerMeta");
 
@@ -169,6 +170,7 @@ function renderDashboard() {
   totalProjects.textContent = projects.length;
   planningCount.textContent = projects.filter((project) => project.status === "Planning").length;
   activeCount.textContent = projects.filter((project) => project.status === "In Progress").length;
+  blockedCount.textContent = projects.filter((project) => project.status === "Blocked").length;
   completedCount.textContent = projects.filter((project) => project.status === "Completed").length;
   renderSelectedTracker();
 }
