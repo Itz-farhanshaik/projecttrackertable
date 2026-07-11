@@ -1,16 +1,16 @@
 :root {
-  --sky: #97b1ea;
-  --sky-deep: #86a4e2;
-  --cream: #f6d78d;
-  --cream-soft: rgba(246, 215, 141, 0.78);
-  --gold: #ffd97d;
-  --ink: #93afe7;
-  --ink-deep: #6e88bf;
-  --panel-cream: #f8df9d;
-  --table-cream: rgba(248, 223, 157, 0.9);
-  --shadow: 0 24px 50px rgba(56, 76, 133, 0.16);
-  --text-dark: #5f76a8;
-  --line: rgba(147, 175, 231, 0.42);
+  --sky: #a7a376;
+  --sky-deep: #8f8f5f;
+  --cream: #fffae5;
+  --cream-soft: rgba(255, 250, 229, 0.78);
+  --gold: #fffae5;
+  --ink: #b6b68f;
+  --ink-deep: #7a7a53;
+  --panel-cream: #fff6dd;
+  --table-cream: rgba(255, 250, 229, 0.9);
+  --shadow: 0 24px 50px rgba(56, 76, 133, 0.12);
+  --text-dark: #6b6b3e;
+  --line: rgba(167, 163, 118, 0.42);
 }
 
 * {
